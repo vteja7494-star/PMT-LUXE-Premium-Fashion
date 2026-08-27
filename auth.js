@@ -1,5 +1,4 @@
 // PMT LUXE — Firebase Phone OTP Login
-// auth.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
@@ -9,9 +8,6 @@ import {
   signInWithPhoneNumber
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-// 🔐 Firebase Console nundi nee config ikkada paste cheyyali
-const firebaseConfig = {
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyC-flmLASFbZTdgplIGWn4JK-p18aIe7D4",
   authDomain: "pmt-luxe-premium-fashion.firebaseapp.com",
@@ -21,14 +17,12 @@ const firebaseConfig = {
   appId: "1:724070705651:web:2af329ad93e69231374a86",
   measurementId: "G-S726ZV5N6V"
 };
-};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 let confirmationResult = null;
 
-// reCAPTCHA
 window.recaptchaVerifier = new RecaptchaVerifier(
   auth,
   "recaptcha-container",
@@ -37,7 +31,6 @@ window.recaptchaVerifier = new RecaptchaVerifier(
   }
 );
 
-// SEND OTP
 window.sendOTP = async function () {
   const phoneInput = document.getElementById("phone");
   const phone = phoneInput.value.trim();
@@ -48,12 +41,10 @@ window.sendOTP = async function () {
   }
 
   try {
-    const appVerifier = window.recaptchaVerifier;
-
     confirmationResult = await signInWithPhoneNumber(
       auth,
       phone,
-      appVerifier
+      window.recaptchaVerifier
     );
 
     document.getElementById("otp-section").style.display = "block";
@@ -64,7 +55,6 @@ window.sendOTP = async function () {
   }
 };
 
-// VERIFY OTP
 window.verifyOTP = async function () {
   const otp = document.getElementById("otp").value.trim();
 
@@ -82,14 +72,11 @@ window.verifyOTP = async function () {
     const result = await confirmationResult.confirm(otp);
     const user = result.user;
 
-    console.log("Logged in:", user.uid);
-
     localStorage.setItem("pmtLoggedIn", "true");
     localStorage.setItem("pmtUserPhone", user.phoneNumber || "");
 
     alert("Login successful ✓");
 
-    // Continue to checkout
     if (typeof window.goToCheckout === "function") {
       window.goToCheckout();
     }
@@ -99,7 +86,6 @@ window.verifyOTP = async function () {
   }
 };
 
-// LOGOUT
 window.logoutPMT = async function () {
   try {
     await auth.signOut();
