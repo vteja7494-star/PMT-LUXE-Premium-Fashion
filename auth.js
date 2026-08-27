@@ -1,4 +1,5 @@
 // PMT LUXE — Firebase Phone OTP Login
+// auth.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
@@ -8,6 +9,7 @@ import {
   signInWithPhoneNumber
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC-flmLASFbZTdgplIGWn4JK-p18aIe7D4",
   authDomain: "pmt-luxe-premium-fashion.firebaseapp.com",
@@ -23,6 +25,7 @@ const auth = getAuth(app);
 
 let confirmationResult = null;
 
+// reCAPTCHA
 window.recaptchaVerifier = new RecaptchaVerifier(
   auth,
   "recaptcha-container",
@@ -31,32 +34,56 @@ window.recaptchaVerifier = new RecaptchaVerifier(
   }
 );
 
+// SEND OTP
 window.sendOTP = async function () {
   const phoneInput = document.getElementById("phone");
+
+  if (!phoneInput) {
+    alert("Phone input not found.");
+    return;
+  }
+
   const phone = phoneInput.value.trim();
 
   if (!/^\+[1-9]\d{7,14}$/.test(phone)) {
-    alert("Enter phone number with country code.\nExample: +919876543210");
+    alert(
+      "Enter phone number with country code.\nExample: +919876543210"
+    );
     return;
   }
 
   try {
+    const appVerifier = window.recaptchaVerifier;
+
     confirmationResult = await signInWithPhoneNumber(
       auth,
       phone,
-      window.recaptchaVerifier
+      appVerifier
     );
 
-    document.getElementById("otp-section").style.display = "block";
+    const otpSection = document.getElementById("otp-section");
+
+    if (otpSection) {
+      otpSection.style.display = "block";
+    }
+
     alert("OTP sent successfully.");
   } catch (error) {
-    console.error(error);
+    console.error("OTP Error:", error);
     alert("OTP failed. Please try again.");
   }
 };
 
+// VERIFY OTP
 window.verifyOTP = async function () {
-  const otp = document.getElementById("otp").value.trim();
+  const otpInput = document.getElementById("otp");
+
+  if (!otpInput) {
+    alert("OTP input not found.");
+    return;
+  }
+
+  const otp = otpInput.value.trim();
 
   if (!/^\d{6}$/.test(otp)) {
     alert("Enter the 6-digit OTP.");
@@ -72,8 +99,13 @@ window.verifyOTP = async function () {
     const result = await confirmationResult.confirm(otp);
     const user = result.user;
 
+    console.log("Logged in:", user.uid);
+
     localStorage.setItem("pmtLoggedIn", "true");
-    localStorage.setItem("pmtUserPhone", user.phoneNumber || "");
+    localStorage.setItem(
+      "pmtUserPhone",
+      user.phoneNumber || ""
+    );
 
     alert("Login successful ✓");
 
@@ -81,11 +113,12 @@ window.verifyOTP = async function () {
       window.goToCheckout();
     }
   } catch (error) {
-    console.error(error);
+    console.error("Verification Error:", error);
     alert("Invalid OTP. Please try again.");
   }
 };
 
+// LOGOUT
 window.logoutPMT = async function () {
   try {
     await auth.signOut();
@@ -94,8 +127,10 @@ window.logoutPMT = async function () {
     localStorage.removeItem("pmtUserPhone");
 
     alert("Logged out successfully.");
+
     location.reload();
   } catch (error) {
-    console.error(error);
+    console.error("Logout Error:", error);
+    alert("Logout failed.");
   }
 };
