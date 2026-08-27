@@ -1,11 +1,27 @@
+// PMT LUXE — Firebase Phone OTP Login
+// auth.js
 
-  apiKey: "...",
-  authDomain: "...",
-  projectId: "...",
-  storageBucket: "...",
-  messagingSenderId: "...",
-  appId: "..."
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC-flmLASFbZTdgIGWn4JK-p18aIe7D4",
+  authDomain: "pmt-luxe-premium-fashion.firebaseapp.com",
+  projectId: "pmt-luxe-premium-fashion",
+  storageBucket: "pmt-luxe-premium-fashion.firebasestorage.app",
+  messagingSenderId: "724070705651",
+  appId: "1:724070705651:web:2af329ad93e69231374a86",
+  measurementId: "G-S726ZV5N6V"
 };
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 // PMT LUXE — Firebase Phone OTP Login
 // auth.js
 
