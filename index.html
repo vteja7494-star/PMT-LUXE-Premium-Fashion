@@ -11,105 +11,111 @@ body{
   margin:0;
   background:#080808;
   color:#fff;
-  font-family:Arial,sans-serif;
+  font-family:Arial,sans-serif
 }
 .container{
   max-width:520px;
-  margin:40px auto;
-  padding:25px;
+  margin:30px auto;
+  padding:20px
 }
 .logo{
   text-align:center;
   font-family:Georgia,serif;
   font-size:42px;
-  letter-spacing:10px;
-  margin-bottom:5px;
+  letter-spacing:10px
 }
 .sub{
   text-align:center;
   letter-spacing:5px;
   font-size:11px;
   color:#aaa;
-  margin-bottom:35px;
+  margin-bottom:30px
 }
 .box{
   border:1px solid #333;
   padding:25px;
-  background:#111;
+  background:#111
 }
+.step{display:none}
+.step.active{display:block}
 h2{
   font-family:Georgia,serif;
   font-weight:400;
-  font-size:28px;
+  font-size:28px
 }
 label{
   display:block;
   font-size:12px;
   color:#aaa;
-  margin:17px 0 7px;
+  margin:17px 0 7px
 }
-input,select,textarea{
+input{
   width:100%;
   padding:14px;
   background:#171717;
   border:1px solid #444;
-  color:white;
-  outline:none;
+  color:#fff;
+  outline:none
 }
-textarea{height:90px;resize:none}
 button{
   width:100%;
   padding:15px;
   margin-top:20px;
-  border:1px solid white;
-  background:white;
+  border:1px solid #fff;
+  background:#fff;
   color:#111;
   font-weight:bold;
   letter-spacing:2px;
+  cursor:pointer
 }
 button.dark{
   background:#111;
-  color:white;
-  border-color:#555;
+  color:#fff;
+  border-color:#555
 }
-.step{display:none}
-.step.active{display:block}
 .otp{
   display:flex;
-  gap:8px;
+  gap:8px
 }
 .otp input{
   text-align:center;
-  font-size:22px;
+  font-size:22px
 }
 .info{
   padding:14px;
   border:1px solid #333;
   margin:15px 0;
   color:#bbb;
-  font-size:13px;
-}
-.success{
-  text-align:center;
-  padding:30px 10px;
-}
-.success h2{font-size:34px}
-.price{
-  display:flex;
-  justify-content:space-between;
-  border-bottom:1px solid #333;
-  padding:13px 0;
+  font-size:13px
 }
 .radio{
   border:1px solid #444;
   padding:15px;
-  margin:10px 0;
+  margin:10px 0
 }
-.radio input{width:auto}
+.radio input{
+  width:auto
+}
+.price{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #333;
+  padding:13px 0
+}
 .small{
   color:#777;
   font-size:11px;
-  margin-top:10px;
+  margin-top:10px
+}
+.success{
+  text-align:center;
+  padding:25px 5px
+}
+.success h2{
+  font-size:32px
+}
+#recaptcha-container{
+  margin-top:10px
 }
 </style>
 </head>
@@ -121,69 +127,100 @@ button.dark{
 <div class="logo">PMT</div>
 <div class="sub">LUXE FASHION</div>
 
-<!-- STEP 1 -->
+<!-- LOGIN -->
 <div class="box step active" id="step1">
+
 <h2>Login</h2>
 
-<label>Mobile Number / Email</label>
-<input id="contact" type="text"
-placeholder="Enter mobile number or email">
+<label>Mobile Number</label>
 
-<button onclick="sendOTP()">SEND OTP</button>
+<input
+  id="phone"
+  type="tel"
+  placeholder="+91XXXXXXXXXX"
+  autocomplete="tel"
+>
 
-<button class="dark" onclick="guest()">CONTINUE AS GUEST</button>
+<button type="button" onclick="sendOTP()">
+SEND OTP
+</button>
+
+<button type="button" class="dark" onclick="guest()">
+CONTINUE AS GUEST
+</button>
+
+<div id="recaptcha-container"></div>
+
 </div>
 
 
-<!-- STEP 2 -->
+<!-- OTP -->
 <div class="box step" id="step2">
+
 <h2>Verify OTP</h2>
 
 <div class="info">
-OTP sent successfully.<br>
-For this demo, your OTP is shown below.
-</div>
-
-<div id="demoOtp"
-style="font-size:25px;text-align:center;letter-spacing:8px;margin:20px">
+OTP sent to your mobile number.
 </div>
 
 <label>Enter OTP</label>
 
 <div class="otp">
-<input maxlength="1" id="o1">
-<input maxlength="1" id="o2">
-<input maxlength="1" id="o3">
-<input maxlength="1" id="o4">
-<input maxlength="1" id="o5">
-<input maxlength="1" id="o6">
+
+<input id="o1" maxlength="1" inputmode="numeric">
+<input id="o2" maxlength="1" inputmode="numeric">
+<input id="o3" maxlength="1" inputmode="numeric">
+<input id="o4" maxlength="1" inputmode="numeric">
+<input id="o5" maxlength="1" inputmode="numeric">
+<input id="o6" maxlength="1" inputmode="numeric">
+
 </div>
 
-<button onclick="verifyOTP()">VERIFY OTP</button>
+<!-- Hidden combined OTP field for browser autofill -->
+<input
+  id="otp"
+  type="text"
+  inputmode="numeric"
+  maxlength="6"
+  autocomplete="one-time-code"
+  style="position:absolute;left:-9999px"
+>
 
-<div class="small">OTP valid for 5 minutes.</div>
+<button type="button" onclick="verifyOTP()">
+VERIFY OTP
+</button>
+
+<div class="small">
+OTP valid according to Firebase verification session.
+</div>
+
 </div>
 
 
-<!-- STEP 3 -->
+<!-- DETAILS -->
 <div class="box step" id="step3">
+
 <h2>Your Details</h2>
 
 <label>Full Name</label>
 <input id="name" placeholder="Enter full name">
 
 <label>Mobile Number</label>
-<input id="phone" placeholder="Enter mobile number">
+<input id="customerPhone" placeholder="Enter mobile number">
 
 <label>Email</label>
 <input id="email" type="email" placeholder="Enter email">
 
-<button onclick="detailsNext()">CONTINUE</button>
+<button type="button" onclick="detailsNext()">
+CONTINUE
+</button>
+
 </div>
 
 
-<!-- STEP 4 -->
+<!-- ADDRESS -->
 <div class="box step" id="step4">
+
 <h2>Delivery Address</h2>
 
 <label>House / Flat / Door Number</label>
@@ -202,29 +239,42 @@ style="font-size:25px;text-align:center;letter-spacing:8px;margin:20px">
 <input id="state" placeholder="State">
 
 <label>PIN Code</label>
-<input id="pin" maxlength="6" placeholder="PIN Code">
+<input id="pin" maxlength="6" inputmode="numeric" placeholder="PIN Code">
 
 <label>Landmark</label>
 <input id="landmark" placeholder="Nearby landmark">
 
-<button onclick="addressNext()">CONTINUE</button>
+<button type="button" onclick="addressNext()">
+CONTINUE
+</button>
+
 </div>
 
 
-<!-- STEP 5 -->
+<!-- DELIVERY -->
 <div class="box step" id="step5">
+
 <h2>Delivery Options</h2>
 
 <div class="radio">
 <label>
-<input type="radio" name="delivery" value="Standard Delivery" checked>
+<input
+ type="radio"
+ name="delivery"
+ value="Standard Delivery"
+ checked
+>
  Standard Delivery — Free
 </label>
 </div>
 
 <div class="radio">
 <label>
-<input type="radio" name="delivery" value="Express Delivery">
+<input
+ type="radio"
+ name="delivery"
+ value="Express Delivery"
+>
  Express Delivery — ₹99
 </label>
 </div>
@@ -246,45 +296,67 @@ style="font-size:25px;text-align:center;letter-spacing:8px;margin:20px">
 <strong id="total">₹4,999</strong>
 </div>
 
-<button onclick="paymentNext()">CONTINUE TO PAYMENT</button>
+<button type="button" onclick="paymentNext()">
+CONTINUE TO PAYMENT
+</button>
+
 </div>
 
 
-<!-- STEP 6 -->
+<!-- PAYMENT -->
 <div class="box step" id="step6">
+
 <h2>Payment</h2>
 
 <div class="radio">
 <label>
-<input type="radio" name="payment" value="COD" checked>
+<input
+ type="radio"
+ name="payment"
+ value="COD"
+ checked
+>
  Cash on Delivery
 </label>
 </div>
 
 <div class="radio">
 <label>
-<input type="radio" name="payment" value="UPI">
+<input
+ type="radio"
+ name="payment"
+ value="UPI"
+>
  UPI / Online Payment
 </label>
 </div>
 
-<button onclick="placeOrder()">PLACE ORDER</button>
+<button type="button" onclick="placeOrder()">
+PLACE ORDER
+</button>
+
 </div>
 
 
-<!-- STEP 7 -->
+<!-- SUCCESS -->
 <div class="box step" id="step7">
+
 <div class="success">
 
 <h2>Order Confirmed ✓</h2>
 
-<p>Your PMT LUXE order has been placed successfully.</p>
+<p>
+Your PMT LUXE order has been placed successfully.
+</p>
 
 <div class="info" id="orderInfo"></div>
 
-<button onclick="location.reload()">BACK TO HOME</button>
+<button type="button" onclick="location.reload()">
+BACK TO HOME
+</button>
 
 </div>
+
 </div>
 
 </div>
@@ -292,75 +364,60 @@ style="font-size:25px;text-align:center;letter-spacing:8px;margin:20px">
 
 <script>
 
-let generatedOTP="";
-let otpTime=0;
+let currentStep = 1;
 
 function showStep(number){
-  document.querySelectorAll(".step").forEach(x=>{
-    x.classList.remove("active");
+
+  currentStep = number;
+
+  document.querySelectorAll(".step").forEach(function(step){
+    step.classList.remove("active");
   });
-  document.getElementById("step"+number).classList.add("active");
+
+  const target = document.getElementById("step" + number);
+
+  if(target){
+    target.classList.add("active");
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+  }
 }
 
-function sendOTP(){
-
-  let contact=document.getElementById("contact").value.trim();
-
-  if(!contact){
-    alert("Please enter mobile number or email.");
-    return;
-  }
-
-  generatedOTP=Math.floor(100000+Math.random()*900000).toString();
-  otpTime=Date.now();
-
-  document.getElementById("demoOtp").innerText=generatedOTP;
-
-  showStep(2);
-}
-
-function verifyOTP(){
-
-  let entered="";
-
-  for(let i=1;i<=6;i++){
-    entered+=document.getElementById("o"+i).value;
-  }
-
-  if(Date.now()-otpTime > 300000){
-    alert("OTP expired. Please request a new OTP.");
-    showStep(1);
-    return;
-  }
-
-  if(entered!==generatedOTP){
-    alert("Incorrect OTP.");
-    return;
-  }
-
-  showStep(3);
-}
 
 function guest(){
+
+  localStorage.setItem("pmtGuest","true");
+
   showStep(3);
+
 }
+
 
 function detailsNext(){
 
-  let name=document.getElementById("name").value.trim();
-  let phone=document.getElementById("phone").value.trim();
+  const name =
+    document.getElementById("name").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
 
   if(!name || !phone){
+
     alert("Please enter your name and mobile number.");
+
     return;
   }
 
   showStep(4);
+
 }
+
 
 function addressNext(){
 
-  let fields=[
+  const fields = [
     "house",
     "street",
     "city",
@@ -369,74 +426,279 @@ function addressNext(){
     "pin"
   ];
 
-  for(let id of fields){
+  for(const id of fields){
 
-    if(!document.getElementById(id).value.trim()){
+    const value =
+      document.getElementById(id).value.trim();
+
+    if(!value){
+
       alert("Please complete your full delivery address.");
+
       return;
     }
+
+  }
+
+  if(
+    !/^\d{6}$/.test(
+      document.getElementById("pin").value.trim()
+    )
+  ){
+
+    alert("Please enter a valid 6-digit PIN code.");
+
+    return;
   }
 
   showStep(5);
+
 }
 
-document.querySelectorAll('input[name="delivery"]').forEach(x=>{
-  x.addEventListener("change",function(){
 
-    if(this.value==="Express Delivery"){
-      document.getElementById("deliveryPrice").innerText="₹99";
-      document.getElementById("total").innerText="₹5,098";
+document
+.querySelectorAll('input[name="delivery"]')
+.forEach(function(input){
+
+  input.addEventListener("change",function(){
+
+    if(this.value === "Express Delivery"){
+
+      document.getElementById("deliveryPrice").innerText = "₹99";
+
+      document.getElementById("total").innerText = "₹5,098";
+
     }else{
-      document.getElementById("deliveryPrice").innerText="FREE";
-      document.getElementById("total").innerText="₹4,999";
+
+      document.getElementById("deliveryPrice").innerText = "FREE";
+
+      document.getElementById("total").innerText = "₹4,999";
+
     }
 
   });
+
 });
 
+
 function paymentNext(){
+
   showStep(6);
+
 }
+
+
+function getOTPValue(){
+
+  let otp = "";
+
+  for(let i=1;i<=6;i++){
+
+    otp +=
+      document.getElementById("o"+i).value;
+
+  }
+
+  return otp;
+
+}
+
+
+function fillOTPBoxes(value){
+
+  value = value.replace(/\D/g,"").slice(0,6);
+
+  document.getElementById("otp").value = value;
+
+  for(let i=1;i<=6;i++){
+
+    document.getElementById("o"+i).value =
+      value[i-1] || "";
+
+  }
+
+}
+
+
+document
+.querySelectorAll(".otp input")
+.forEach(function(input,index){
+
+  input.addEventListener("input",function(){
+
+    this.value =
+      this.value.replace(/\D/g,"").slice(0,1);
+
+    if(this.value && index < 5){
+
+      document
+      .getElementById("o"+(index+2))
+      .focus();
+
+    }
+
+    const value = getOTPValue();
+
+    document.getElementById("otp").value = value;
+
+  });
+
+});
+
+
+document
+.getElementById("otp")
+.addEventListener("input",function(){
+
+  fillOTPBoxes(this.value);
+
+});
+
 
 function placeOrder(){
 
-  let name=document.getElementById("name").value;
-  let city=document.getElementById("city").value;
-  let state=document.getElementById("state").value;
-  let pin=document.getElementById("pin").value;
+  const name =
+    document.getElementById("name").value.trim();
 
-  let delivery=document.querySelector(
-    'input[name="delivery"]:checked'
-  ).value;
+  const phone =
+    document.getElementById("customerPhone").value.trim();
 
-  let payment=document.querySelector(
-    'input[name="payment"]:checked'
-  ).value;
+  const email =
+    document.getElementById("email").value.trim();
 
-  let orderNumber="PMT"+Date.now().toString().slice(-8);
+  const delivery =
+    document.querySelector(
+      'input[name="delivery"]:checked'
+    ).value;
 
-  document.getElementById("orderInfo").innerHTML=
-  "<b>Order ID:</b> "+orderNumber+
-  "<br><br>"+
-  "<b>Customer:</b> "+name+
-  "<br><br>"+
-  "<b>Delivery:</b> "+delivery+
-  "<br><br>"+
-  "<b>Payment:</b> "+payment+
-  "<br><br>"+
-  "<b>Address:</b> "+city+", "+state+" - "+pin;
+  const payment =
+    document.querySelector(
+      'input[name="payment"]:checked'
+    ).value;
+
+  const city =
+    document.getElementById("city").value.trim();
+
+  const district =
+    document.getElementById("district").value.trim();
+
+  const state =
+    document.getElementById("state").value.trim();
+
+  const pin =
+    document.getElementById("pin").value.trim();
+
+  const house =
+    document.getElementById("house").value.trim();
+
+  const street =
+    document.getElementById("street").value.trim();
+
+  const landmark =
+    document.getElementById("landmark").value.trim();
+
+  const amount =
+    delivery === "Express Delivery"
+      ? 5098
+      : 4999;
+
+  const orderNumber =
+    "PMT" +
+    Date.now().toString().slice(-8);
+
+  const order = {
+
+    orderId: orderNumber,
+
+    customer: {
+      name,
+      phone,
+      email
+    },
+
+    address: {
+      house,
+      street,
+      city,
+      district,
+      state,
+      pin,
+      landmark
+    },
+
+    product: "Midnight Elegance",
+
+    amount,
+
+    delivery,
+
+    payment,
+
+    status: "Pending",
+
+    createdAt:
+      new Date().toISOString()
+
+  };
+
+  const existingOrders =
+    JSON.parse(
+      localStorage.getItem("pmtOrders") || "[]"
+    );
+
+  existingOrders.push(order);
+
+  localStorage.setItem(
+    "pmtOrders",
+    JSON.stringify(existingOrders)
+  );
+
+  document.getElementById("orderInfo").innerHTML =
+
+    "<b>Order ID:</b> " +
+    orderNumber +
+
+    "<br><br>" +
+
+    "<b>Customer:</b> " +
+    name +
+
+    "<br><br>" +
+
+    "<b>Product:</b> Midnight Elegance" +
+
+    "<br><br>" +
+
+    "<b>Amount:</b> ₹" +
+    amount.toLocaleString("en-IN") +
+
+    "<br><br>" +
+
+    "<b>Delivery:</b> " +
+    delivery +
+
+    "<br><br>" +
+
+    "<b>Payment:</b> " +
+    payment +
+
+    "<br><br>" +
+
+    "<b>Address:</b> " +
+    house + ", " +
+    street + ", " +
+    city + ", " +
+    district + ", " +
+    state + " - " +
+    pin;
 
   showStep(7);
+
 }
 
 </script>
-<!-- PMT LUXE OTP LOGIN -->
-<div id="login-section">
-  <input
-    id="phone"
-    type="tel"
-    
 
 <script type="module" src="auth.js"></script>
+
 </body>
-</html>
+  </html>
