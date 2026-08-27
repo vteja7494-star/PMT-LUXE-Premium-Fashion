@@ -23,29 +23,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 // PMT LUXE — Firebase Phone OTP Login
-// auth.js
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyC-flmLASFbZTdgplIGWn4JK-p18aIe7D4",
-  authDomain: "pmt-luxe-premium-fashion.firebaseapp.com",
-  projectId: "pmt-luxe-premium-fashion",
-  storageBucket: "pmt-luxe-premium-fashion.firebasestorage.app",
-  messagingSenderId: "724070705651",
-  appId: "1:724070705651:web:2af329ad93e69231374a86",
-  measurementId: "G-S726ZV5N6V"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 let confirmationResult = null;
 
@@ -158,3 +136,66 @@ window.logoutPMT = async function () {
     alert("Logout failed.");
   }
 };
+// VERIFY OTP
+window.verifyOTP = async function () {
+  const otpInput = document.getElementById("otp");
+
+  if (!otpInput) {
+    alert("OTP input not found.");
+    return;
+  }
+
+  const otp = otpInput.value.trim();
+
+  if (!/^\d{6}$/.test(otp)) {
+    alert("Enter valid 6-digit OTP.");
+    return;
+  }
+
+  try {
+    await confirmationResult.confirm(otp);
+
+    alert("Login successful!");
+
+    // Continue to checkout
+    if (typeof showStep === "function") {
+      showStep(7);
+    }
+
+  } catch (error) {
+    console.error("OTP verification error:", error);
+    alert("Invalid OTP. Please try again.");
+  }
+};
+
+
+// AUTOMATIC OTP DETECTION
+if ("OTPCredential" in window) {
+  window.addEventListener("DOMContentLoaded", () => {
+
+    const otpInput = document.getElementById("otp");
+
+    if (!otpInput) return;
+
+    const ac = new AbortController();
+
+    navigator.credentials.get({
+      otp: { transport: ["sms"] },
+      signal: ac.signal
+    }).then(otp => {
+
+      if (otp && otp.code) {
+        otpInput.value = otp.code;
+
+        // Automatically verify OTP
+        if (typeof window.verifyOTP === "function") {
+          window.verifyOTP();
+        }
+      }
+
+    }).catch(error => {
+      console.log("Automatic OTP detection:", error);
+    });
+
+  });
+}
