@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PMT Luxe — Admin</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #080808;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      padding: 25px 20px;
+      border-bottom: 1px solid #333;
+      text-align: center;
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      letter-spacing: 8px;
+    }
+
+    .subtitle {
+      color: #999;
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-top: 6px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-weight: normal;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .card {
+      border: 1px solid #333;
+      padding: 22px;
+      background: #111;
+    }
+
+    .card span {
+      display: block;
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .card strong {
+      font-size: 25px;
+    }
+
+    .orders {
+      border: 1px solid #333;
+      background: #111;
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    th, td {
+      padding: 14px 10px;
+      border-bottom: 1px solid #292929;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      color: #aaa;
+      font-weight: normal;
+    }
+
+    .status {
+      padding: 6px 10px;
+      border: 1px solid #555;
+      font-size: 11px;
+    }
+
+    .logout {
+      margin-top: 25px;
+      background: #fff;
+      color: #000;
+      border: 0;
+      padding: 13px 25px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        margin: 15px auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">PMT</div>
+  <div class="subtitle">LUXE FASHION</div>
+</header>
+
+<main>
+
+  <h1>Admin Dashboard</h1>
+
+  <div class="cards">
+    <div class="card">
+      <span>Total Orders</span>
+      <strong id="totalOrders">0</strong>
+    </div>
+
+    <div class="card">
+      <span>Pending Orders</span>
+      <strong id="pendingOrders">0</strong>
+    </div>
+
+    <div class="card">
+      <span>Total Revenue</span>
+      <strong id="totalRevenue">₹0</strong>
+    </div>
+  </div>
+
+  <div class="orders">
+    <h2>Recent Orders</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Amount</th>
+          <th>Payment</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="ordersTable">
+        <tr>
+          <td>PMT23625400</td>
+          <td>Demo Customer</td>
+          <td>Midnight Elegance</td>
+          <td>₹4,999</td>
+          <td>COD</td>
+          <td>
+            <span class="status">Pending</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="logout" onclick="logoutAdmin()">LOGOUT</button>
+
+</main>
+
+<script>
+  function logoutAdmin() {
+    localStorage.removeItem("pmtLoggedIn");
+    localStorage.removeItem("pmtUserPhone");
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
