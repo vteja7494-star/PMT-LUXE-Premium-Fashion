@@ -1,1202 +1,435 @@
-PMT LUXE — Complete Single-File Website
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PMT LUXE — Premium Fashion</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PMT LUXE — Checkout</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f7f5f0;
-    color:#111;
+  margin:0;
+  background:#080808;
+  color:#fff;
+  font-family:Arial,sans-serif;
 }
-
-button,
-input,
-textarea,
-select{
-    font:inherit;
+.container{
+  max-width:520px;
+  margin:40px auto;
+  padding:25px;
 }
-
-button{
-    cursor:pointer;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-/* LOGIN */
-
-#loginScreen{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#0b0b0b;
-    color:white;
-    padding:20px;
-}
-
-.login-box{
-    width:100%;
-    max-width:420px;
-    padding:40px 28px;
-    text-align:center;
-    border:1px solid #333;
-    background:#111;
-    animation:loginIn .7s ease;
-}
-
-@keyframes loginIn{
-    from{
-        opacity:0;
-        transform:translateY(30px) scale(.97);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-.logo-big{
-    font-size:54px;
-    letter-spacing:12px;
-    font-weight:800;
-}
-
-.login-subtitle{
-    margin:8px 0 30px;
-    letter-spacing:5px;
-    font-size:11px;
-    color:#aaa;
-}
-
-.login-box input{
-    width:100%;
-    padding:15px;
-    margin:7px 0;
-    border:1px solid #444;
-    background:#181818;
-    color:white;
-    outline:none;
-}
-
-.primary-btn,
-.login-btn,
-.place-order{
-    width:100%;
-    border:0;
-    padding:15px;
-    margin-top:12px;
-    background:white;
-    color:#111;
-    font-weight:700;
-    letter-spacing:1px;
-}
-
-.guest-btn{
-    width:100%;
-    border:1px solid #555;
-    background:transparent;
-    color:white;
-    padding:14px;
-    margin-top:10px;
-}
-
-/* OTP */
-
-#otpScreen{
-    display:none;
-}
-
-.otp-row{
-    display:flex;
-    gap:8px;
-    justify-content:center;
-    margin:15px 0;
-}
-
-.otp-row input{
-    width:45px;
-    height:52px;
-    text-align:center;
-    font-size:20px;
-}
-
-/* NAV */
-
-.nav{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    height:72px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 5%;
-    background:rgba(247,245,240,.96);
-    border-bottom:1px solid #ddd;
-}
-
 .logo{
-    font-size:27px;
-    font-weight:900;
-    letter-spacing:6px;
+  text-align:center;
+  font-family:Georgia,serif;
+  font-size:42px;
+  letter-spacing:10px;
+  margin-bottom:5px;
 }
-
-.nav-links{
-    display:flex;
-    gap:30px;
-    font-size:13px;
+.sub{
+  text-align:center;
+  letter-spacing:5px;
+  font-size:11px;
+  color:#aaa;
+  margin-bottom:35px;
 }
-
-.nav-actions{
-    display:flex;
-    gap:10px;
+.box{
+  border:1px solid #333;
+  padding:25px;
+  background:#111;
 }
-
-.icon-btn{
-    position:relative;
-    border:0;
-    background:none;
-    font-size:21px;
-    padding:7px;
+h2{
+  font-family:Georgia,serif;
+  font-weight:400;
+  font-size:28px;
 }
-
-.count{
-    position:absolute;
-    top:-3px;
-    right:-3px;
-    width:17px;
-    height:17px;
-    border-radius:50%;
-    background:#111;
-    color:white;
-    font-size:10px;
-    display:none;
-    align-items:center;
-    justify-content:center;
+label{
+  display:block;
+  font-size:12px;
+  color:#aaa;
+  margin:17px 0 7px;
 }
-
-/* HERO */
-
-.hero{
-    min-height:calc(100vh - 72px);
-    display:flex;
-    align-items:center;
-    padding:8%;
-    background:
-      linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,.38)),
-      url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85")
-      center/cover;
-    color:white;
+input,select,textarea{
+  width:100%;
+  padding:14px;
+  background:#171717;
+  border:1px solid #444;
+  color:white;
+  outline:none;
 }
-
-.hero-content{
-    max-width:600px;
+textarea{height:90px;resize:none}
+button{
+  width:100%;
+  padding:15px;
+  margin-top:20px;
+  border:1px solid white;
+  background:white;
+  color:#111;
+  font-weight:bold;
+  letter-spacing:2px;
 }
-
-.eyebrow{
-    font-size:11px;
-    letter-spacing:4px;
-    margin-bottom:20px;
+button.dark{
+  background:#111;
+  color:white;
+  border-color:#555;
 }
-
-.hero h1{
-    font-size:clamp(55px,9vw,110px);
-    line-height:.9;
-    margin-bottom:25px;
+.step{display:none}
+.step.active{display:block}
+.otp{
+  display:flex;
+  gap:8px;
 }
-
-.hero p{
-    max-width:500px;
-    line-height:1.7;
-    color:#eee;
+.otp input{
+  text-align:center;
+  font-size:22px;
 }
-
-.hero .primary-btn{
-    display:inline-block;
-    width:auto;
-    margin-top:28px;
-    padding:16px 25px;
+.info{
+  padding:14px;
+  border:1px solid #333;
+  margin:15px 0;
+  color:#bbb;
+  font-size:13px;
 }
-
-/* SECTIONS */
-
-section{
-    padding:90px 6%;
+.success{
+  text-align:center;
+  padding:30px 10px;
 }
-
-.section-head{
-    margin-bottom:45px;
-}
-
-.section-head span{
-    font-size:10px;
-    letter-spacing:4px;
-    color:#777;
-}
-
-.section-head h2{
-    margin-top:12px;
-    font-size:48px;
-}
-
-/* PRODUCTS */
-
-.products{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:22px;
-}
-
-.product{
-    background:white;
-    overflow:hidden;
-}
-
-.product img{
-    width:100%;
-    aspect-ratio:4/5;
-    object-fit:cover;
-    display:block;
-    transition:transform .4s;
-}
-
-.product:hover img{
-    transform:scale(1.04);
-}
-
-.product-info{
-    padding:20px;
-}
-
-.product-info h3{
-    font-size:16px;
-    margin-bottom:8px;
-}
-
+.success h2{font-size:34px}
 .price{
-    color:#666;
-    margin-bottom:15px;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #333;
+  padding:13px 0;
 }
-
-.secondary-btn{
-    width:100%;
-    padding:12px;
-    border:1px solid #111;
-    background:white;
+.radio{
+  border:1px solid #444;
+  padding:15px;
+  margin:10px 0;
 }
-
-/* ABOUT */
-
-.about{
-    background:#111;
-    color:white;
-    text-align:center;
-}
-
-.about h2{
-    font-size:clamp(40px,6vw,75px);
-    margin:20px 0;
-}
-
-.about p{
-    max-width:650px;
-    margin:auto;
-    line-height:1.8;
-    color:#bbb;
-}
-
-/* MODAL */
-
-.overlay{
-    position:fixed;
-    inset:0;
-    z-index:3000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,.72);
-    padding:20px;
-}
-
-.overlay.show{
-    display:flex;
-}
-
-.modal{
-    width:100%;
-    max-width:900px;
-    max-height:90vh;
-    overflow:auto;
-    background:#fff;
-    position:relative;
-}
-
-.close{
-    position:absolute;
-    top:15px;
-    right:18px;
-    z-index:2;
-    border:0;
-    background:white;
-    font-size:30px;
-}
-
-.product-modal{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-}
-
-.product-modal img{
-    width:100%;
-    height:100%;
-    min-height:500px;
-    object-fit:cover;
-}
-
-.product-modal-info{
-    padding:45px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.product-modal-info h2{
-    font-size:38px;
-    margin:12px 0;
-}
-
-.size-row{
-    display:flex;
-    gap:8px;
-    margin:25px 0;
-}
-
-.size{
-    width:45px;
-    height:45px;
-    border:1px solid #bbb;
-    background:white;
-}
-
-.size.selected{
-    background:#111;
-    color:white;
-}
-
-/* BAG */
-
-.bag-panel{
-    position:fixed;
-    right:-450px;
-    top:0;
-    z-index:4000;
-    width:min(450px,100%);
-    height:100vh;
-    background:white;
-    box-shadow:-10px 0 40px rgba(0,0,0,.15);
-    transition:right .35s;
-    padding:30px;
-    overflow:auto;
-}
-
-.bag-panel.show{
-    right:0;
-}
-
-.bag-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:30px;
-}
-
-.bag-item{
-    display:flex;
-    gap:15px;
-    border-bottom:1px solid #ddd;
-    padding:15px 0;
-}
-
-.bag-item img{
-    width:85px;
-    height:105px;
-    object-fit:cover;
-}
-
-.bag-item h3{
-    font-size:14px;
-    margin-bottom:7px;
-}
-
-.quantity{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-top:10px;
-}
-
-.quantity button{
-    width:28px;
-    height:28px;
-    border:1px solid #aaa;
-    background:white;
-}
-
-.remove{
-    margin-top:8px;
-    border:0;
-    background:none;
-    text-decoration:underline;
-    font-size:11px;
-}
-
-.bag-total{
-    display:flex;
-    justify-content:space-between;
-    padding:22px 0;
-    font-size:18px;
-}
-
-/* CHECKOUT */
-
-.checkout-box{
-    width:100%;
-    max-width:600px;
-    background:white;
-    padding:35px;
-    max-height:90vh;
-    overflow:auto;
-}
-
-.checkout-box h2{
-    font-size:36px;
-    margin-bottom:8px;
-}
-
-.checkout-subtitle{
-    color:#777;
-    margin-bottom:25px;
-}
-
-.checkout-box input,
-.checkout-box textarea,
-.checkout-box select{
-    width:100%;
-    padding:14px;
-    margin-bottom:12px;
-    border:1px solid #ccc;
-    background:white;
-    outline:none;
-}
-
-.address-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.summary{
-    border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-    padding:18px 0;
-    margin:10px 0;
-    display:flex;
-    justify-content:space-between;
-}
-
-/* SUCCESS */
-
-.success-box{
-    background:white;
-    width:100%;
-    max-width:500px;
-    padding:45px 30px;
-    text-align:center;
-}
-
-.success-icon{
-    font-size:60px;
-    margin-bottom:15px;
-}
-
-.order-id{
-    margin:20px 0;
-    padding:15px;
-    background:#f2f2f2;
-    font-weight:bold;
-}
-
-/* FOOTER */
-
-footer{
-    padding:50px 6%;
-    background:#080808;
-    color:white;
-    text-align:center;
-}
-
-footer .logo{
-    display:block;
-    margin-bottom:15px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:900px){
-
-    .products{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .product-modal{
-        grid-template-columns:1fr;
-    }
-
-    .product-modal img{
-        min-height:350px;
-        max-height:450px;
-    }
-
-}
-
-@media(max-width:600px){
-
-    .nav{
-        padding:0 18px;
-    }
-
-    .nav-links{
-        display:none;
-    }
-
-    section{
-        padding:65px 20px;
-    }
-
-    .products{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .product-info{
-        padding:12px;
-    }
-
-    .product-info h3{
-        font-size:13px;
-    }
-
-    .hero{
-        padding:35px 20px;
-    }
-
-    .hero h1{
-        font-size:62px;
-    }
-
-    .section-head h2{
-        font-size:38px;
-    }
-
-    .address-row{
-        grid-template-columns:1fr;
-    }
-
-    .checkout-box{
-        padding:25px 18px;
-    }
-
+.radio input{width:auto}
+.small{
+  color:#777;
+  font-size:11px;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================================
-     LOGIN
-========================================= -->
+<div class="container">
 
-<div id="loginScreen">
+<div class="logo">PMT</div>
+<div class="sub">LUXE FASHION</div>
 
-    <div class="login-box">
+<!-- STEP 1 -->
+<div class="box step active" id="step1">
+<h2>Login</h2>
 
-        <div class="logo-big">PMT</div>
+<label>Mobile Number / Email</label>
+<input id="contact" type="text"
+placeholder="Enter mobile number or email">
 
-        <div class="login-subtitle">
-            LUXE FASHION
-        </div>
+<button onclick="sendOTP()">SEND OTP</button>
 
-        <div id="loginStep">
-
-            <input
-                id="loginContact"
-                type="text"
-                placeholder="Mobile Number / Email"
-            >
-
-            <button
-                class="login-btn"
-                onclick="sendOTP()"
-            >
-                SEND OTP
-            </button>
-
-            <button
-                class="guest-btn"
-                onclick="guestLogin()"
-            >
-                CONTINUE AS GUEST
-            </button>
-
-        </div>
-
-        <div id="otpScreen">
-
-            <p style="color:#aaa;margin-bottom:10px;">
-                Enter your 6-digit OTP
-            </p>
-
-            <div class="otp-row">
-
-                <input maxlength="1" class="otp">
-                <input maxlength="1" class="otp">
-                <input maxlength="1" class="otp">
-                <input maxlength="1" class="otp">
-                <input maxlength="1" class="otp">
-                <input maxlength="1" class="otp">
-
-            </div>
-
-            <p id="otpTimer" style="color:#aaa;font-size:12px;">
-                OTP expires in 60 seconds
-            </p>
-
-            <button
-                class="login-btn"
-                onclick="verifyOTP()"
-            >
-                VERIFY OTP
-            </button>
-
-            <button
-                class="guest-btn"
-                onclick="sendOTP()"
-            >
-                RESEND OTP
-            </button>
-
-        </div>
-
-    </div>
-
+<button class="dark" onclick="guest()">CONTINUE AS GUEST</button>
 </div>
 
 
-<!-- =========================================
-     NAV
-========================================= -->
+<!-- STEP 2 -->
+<div class="box step" id="step2">
+<h2>Verify OTP</h2>
 
-<nav class="nav">
+<div class="info">
+OTP sent successfully.<br>
+For this demo, your OTP is shown below.
+</div>
 
-    <a class="logo" href="#home">
-        PMT
-    </a>
+<div id="demoOtp"
+style="font-size:25px;text-align:center;letter-spacing:8px;margin:20px">
+</div>
 
-    <div class="nav-links">
+<label>Enter OTP</label>
 
-        <a href="#home">Home</a>
-        <a href="#collection">Collection</a>
-        <a href="#about">About</a>
+<div class="otp">
+<input maxlength="1" id="o1">
+<input maxlength="1" id="o2">
+<input maxlength="1" id="o3">
+<input maxlength="1" id="o4">
+<input maxlength="1" id="o5">
+<input maxlength="1" id="o6">
+</div>
 
-    </div>
+<button onclick="verifyOTP()">VERIFY OTP</button>
 
-    <div class="nav-actions">
-
-        <button
-            class="icon-btn"
-            onclick="searchProducts()"
-        >
-            ⌕
-        </button>
-
-        <button
-            class="icon-btn"
-            onclick="accountPage()"
-        >
-            ♙
-        </button>
-
-        <button
-            class="icon-btn"
-            onclick="openBag()"
-        >
-            ♡
-            <span class="count" id="bagCount">
-                0
-            </span>
-        </button>
-
-    </div>
-
-</nav>
-
-
-<!-- =========================================
-     HOME
-========================================= -->
-
-<section class="hero" id="home">
-
-    <div class="hero-content">
-
-        <div class="eyebrow">
-            PMT / NEW COLLECTION
-        </div>
-
-        <h1>
-            Quiet<br>
-            Luxury.
-        </h1>
-
-        <p>
-            Timeless silhouettes. Premium details.
-            Designed for those who prefer elegance
-            without the noise.
-        </p>
-
-        <a
-            href="#collection"
-            class="primary-btn"
-        >
-            EXPLORE COLLECTION
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================
-     COLLECTION
-========================================= -->
-
-<section id="collection">
-
-    <div class="section-head">
-
-        <span>
-            PMT / CURATED EDIT
-        </span>
-
-        <h2>
-            The Collection
-        </h2>
-
-    </div>
-
-
-    <div class="products" id="productGrid"></div>
-
-</section>
-
-
-<!-- =========================================
-     ABOUT
-========================================= -->
-
-<section class="about" id="about">
-
-    <div class="eyebrow">
-        THE PMT PHILOSOPHY
-    </div>
-
-    <h2>
-        Less noise.<br>
-        More style.
-    </h2>
-
-    <p>
-        PMT LUXE is built around modern luxury,
-        clean silhouettes and timeless fashion.
-        Every piece is selected to feel sophisticated
-        today and relevant tomorrow.
-    </p>
-
-</section>
-
-
-<!-- =========================================
-     PRODUCT MODAL
-========================================= -->
-
-<div class="overlay" id="productOverlay">
-
-    <div class="modal product-modal">
-
-        <button
-            class="close"
-            onclick="closeProduct()"
-        >
-            ×
-        </button>
-
-        <img id="productImage" src="" alt="Product">
-
-        <div class="product-modal-info">
-
-            <div class="eyebrow">
-                PMT / EXCLUSIVE
-            </div>
-
-            <h2 id="productName"></h2>
-
-            <h3 id="productPrice"></h3>
-
-            <p
-                id="productDescription"
-                style="color:#666;line-height:1.7;margin-top:15px;"
-            ></p>
-
-            <div class="size-row">
-
-                <button class="size" onclick="selectSize(this)">
-                    S
-                </button>
-
-                <button class="size selected" onclick="selectSize(this)">
-                    M
-                </button>
-
-                <button class="size" onclick="selectSize(this)">
-                    L
-                </button>
-
-                <button class="size" onclick="selectSize(this)">
-                    XL
-                </button>
-
-            </div>
-
-            <button
-                class="primary-btn"
-                onclick="addSelectedToBag()"
-            >
-                ADD TO BAG
-            </button>
-
-        </div>
-
-    </div>
-
+<div class="small">OTP valid for 5 minutes.</div>
 </div>
 
 
-<!-- =========================================
-     BAG
-========================================= -->
+<!-- STEP 3 -->
+<div class="box step" id="step3">
+<h2>Your Details</h2>
 
-<div class="bag-panel" id="bagPanel">
+<label>Full Name</label>
+<input id="name" placeholder="Enter full name">
 
-    <div class="bag-head">
+<label>Mobile Number</label>
+<input id="phone" placeholder="Enter mobile number">
 
-        <div>
-            <div class="eyebrow">
-                PMT / SHOPPING
-            </div>
+<label>Email</label>
+<input id="email" type="email" placeholder="Enter email">
 
-            <h2>
-                Your Bag
-            </h2>
-        </div>
-
-        <button
-            class="close"
-            style="position:static;"
-            onclick="closeBag()"
-        >
-            ×
-        </button>
-
-    </div>
-
-    <div id="bagItems"></div>
-
-    <div class="bag-total">
-
-        <span>
-            Total
-        </span>
-
-        <strong id="bagTotal">
-            ₹0
-        </strong>
-
-    </div>
-
-    <button
-        class="primary-btn"
-        onclick="openCheckout()"
-    >
-        PROCEED TO CHECKOUT
-    </button>
-
+<button onclick="detailsNext()">CONTINUE</button>
 </div>
 
 
-<!-- =========================================
-     CHECKOUT
-========================================= -->
+<!-- STEP 4 -->
+<div class="box step" id="step4">
+<h2>Delivery Address</h2>
 
-<div class="overlay" id="checkoutOverlay">
+<label>House / Flat / Door Number</label>
+<input id="house" placeholder="House / Flat / Door No.">
 
-    <div class="checkout-box">
+<label>Street / Area</label>
+<input id="street" placeholder="Street / Area">
 
-        <button
-            class="close"
-            onclick="closeCheckout()"
-        >
-            ×
-        </button>
+<label>Village / Town / City</label>
+<input id="city" placeholder="Village / Town / City">
 
-        <div class="eyebrow">
-            PMT / ORDER
-        </div>
+<label>District</label>
+<input id="district" placeholder="District">
 
-        <h2>
-            Checkout
-        </h2>
+<label>State</label>
+<input id="state" placeholder="State">
 
-        <p class="checkout-subtitle">
-            Enter your complete delivery details.
-        </p>
+<label>PIN Code</label>
+<input id="pin" maxlength="6" placeholder="PIN Code">
 
-        <form id="checkoutForm">
+<label>Landmark</label>
+<input id="landmark" placeholder="Nearby landmark">
 
-            <input
-                id="fullName"
-                type="text"
-                placeholder="Full Name"
-                required
-            >
-
-            <input
-                id="phone"
-                type="tel"
-                placeholder="Mobile Number"
-                maxlength="10"
-                pattern="[0-9]{10}"
-                required
-            >
-
-            <input
-                id="door"
-                type="text"
-                placeholder="House / Flat / Door No."
-                required
-            >
-
-            <input
-                id="building"
-                type="text"
-                placeholder="Building / Apartment Name"
-                required
-            >
-
-            <input
-                id="street"
-                type="text"
-                placeholder="Street / Road"
-                required
-            >
-
-            <input
-                id="area"
-                type="text"
-                placeholder="Area / Locality"
-                required
-            >
-
-            <div class="address-row">
-
-                <input
-                    id="city"
-                    type="text"
-                    placeholder="Village / Town / City"
-                    required
-                >
-
-                <input
-                    id="district"
-                    type="text"
-                    placeholder="District"
-                    required
-                >
-
-            </div>
-
-            <div class="address-row">
-
-                <input
-                    id="state"
-                    type="text"
-                    placeholder="State"
-                    required
-                >
-
-                <input
-                    id="pincode"
-                    type="tel"
-                    placeholder="Pincode"
-                    maxlength="6"
-                    pattern="[0-9]{6}"
-                    required
-                >
-
-            </div>
-
-            <input
-                id="country"
-                type="text"
-                placeholder="Country"
-                value="India"
-                required
-            >
-
-            <input
-                id="landmark"
-                type="text"
-                placeholder="Landmark (Optional)"
-            >
-
-            <select id="payment" required>
-
-                <option value="">
-                    Select Payment Method
-                </option>
-
-                <option>
-                    Cash on Delivery
-                </option>
-
-                <option>
-                    UPI
-                </option>
-
-                <option>
-                    Credit / Debit Card
-                </option>
-
-                <option>
-                    EMI
-                </option>
-
-            </select>
-
-            <div class="summary">
-
-                <span>
-                    Order Total
-                </span>
-
-                <strong id="checkoutTotal">
-                    ₹0
-                </strong>
-
-            </div>
-
-            <button
-                type="submit"
-                class="place-order"
-            >
-                PLACE ORDER
-            </button>
-
-        </form>
-
-    </div>
-
+<button onclick="addressNext()">CONTINUE</button>
 </div>
 
 
-<!-- =========================================
-     ORDER SUCCESS
-========================================= -->
+<!-- STEP 5 -->
+<div class="box step" id="step5">
+<h2>Delivery Options</h2>
 
-<div class="overlay" id="successOverlay">
+<div class="radio">
+<label>
+<input type="radio" name="delivery" value="Standard Delivery" checked>
+ Standard Delivery — Free
+</label>
+</div>
 
-    <div class="success-box">
+<div class="radio">
+<label>
+<input type="radio" name="delivery" value="Express Delivery">
+ Express Delivery — ₹99
+</label>
+</div>
 
-        <div class="success-icon">
-            ✓
-        </div>
+<h2>Order Summary</h2>
 
-        <h2>
-            Order Confirmed
-        </h2>
+<div class="price">
+<span>Midnight Elegance</span>
+<span>₹4,999</span>
+</div>
 
-        <p style="margin-top:10px;color:#666;">
-            Thank you for shopping with PMT LUXE.
-        </p>
+<div class="price">
+<span>Delivery</span>
+<span id="deliveryPrice">FREE</span>
+</div>
 
-        <div class="order-id">
-            Order ID:
-            <span id="orderId"></span>
-        </div>
+<div class="price">
+<strong>Total</strong>
+<strong id="total">₹4,999</strong>
+</div>
 
-        <p id="deliveryText" style="line-height:1.7;"></p>
-
-        <button
-            class="primary-btn"
-            onclick="closeSuccess()"
-        >
-            CONTINUE SHOPPING
-        </button>
-
-    </div>
-
+<button onclick="paymentNext()">CONTINUE TO PAYMENT</button>
 </div>
 
 
-<!-- =========================================
-     FOOTER
-========================================= -->
+<!-- STEP 6 -->
+<div class="box step" id="step6">
+<h2>Payment</h2>
 
-<footer>
+<div class="radio">
+<label>
+<input type="radio" name="payment" value="COD" checked>
+ Cash on Delivery
+</label>
+</div>
 
-    <div class="logo">
-        PMT
-    </div>
+<div class="radio">
+<label>
+<input type="radio" name="payment" value="UPI">
+ UPI / Online Payment
+</label>
+</div>
 
-    <p>
-        © 2026 PMT LUXE. ALL RIGHTS RESERVED.
-    </p>
+<button onclick="placeOrder()">PLACE ORDER</button>
+</div>
 
-</footer>
+
+<!-- STEP 7 -->
+<div class="box step" id="step7">
+<div class="success">
+
+<h2>Order Confirmed ✓</h2>
+
+<p>Your PMT LUXE order has been placed successfully.</p>
+
+<div class="info" id="orderInfo"></div>
+
+<button onclick="location.reload()">BACK TO HOME</button>
+
+</div>
+</div>
+
+</div>
 
 
 <script>
 
-/* =========================================
-   PRODUCT DATA
-==
+let generatedOTP="";
+let otpTime=0;
+
+function showStep(number){
+  document.querySelectorAll(".step").forEach(x=>{
+    x.classList.remove("active");
+  });
+  document.getElementById("step"+number).classList.add("active");
+}
+
+function sendOTP(){
+
+  let contact=document.getElementById("contact").value.trim();
+
+  if(!contact){
+    alert("Please enter mobile number or email.");
+    return;
+  }
+
+  generatedOTP=Math.floor(100000+Math.random()*900000).toString();
+  otpTime=Date.now();
+
+  document.getElementById("demoOtp").innerText=generatedOTP;
+
+  showStep(2);
+}
+
+function verifyOTP(){
+
+  let entered="";
+
+  for(let i=1;i<=6;i++){
+    entered+=document.getElementById("o"+i).value;
+  }
+
+  if(Date.now()-otpTime > 300000){
+    alert("OTP expired. Please request a new OTP.");
+    showStep(1);
+    return;
+  }
+
+  if(entered!==generatedOTP){
+    alert("Incorrect OTP.");
+    return;
+  }
+
+  showStep(3);
+}
+
+function guest(){
+  showStep(3);
+}
+
+function detailsNext(){
+
+  let name=document.getElementById("name").value.trim();
+  let phone=document.getElementById("phone").value.trim();
+
+  if(!name || !phone){
+    alert("Please enter your name and mobile number.");
+    return;
+  }
+
+  showStep(4);
+}
+
+function addressNext(){
+
+  let fields=[
+    "house",
+    "street",
+    "city",
+    "district",
+    "state",
+    "pin"
+  ];
+
+  for(let id of fields){
+
+    if(!document.getElementById(id).value.trim()){
+      alert("Please complete your full delivery address.");
+      return;
+    }
+  }
+
+  showStep(5);
+}
+
+document.querySelectorAll('input[name="delivery"]').forEach(x=>{
+  x.addEventListener("change",function(){
+
+    if(this.value==="Express Delivery"){
+      document.getElementById("deliveryPrice").innerText="₹99";
+      document.getElementById("total").innerText="₹5,098";
+    }else{
+      document.getElementById("deliveryPrice").innerText="FREE";
+      document.getElementById("total").innerText="₹4,999";
+    }
+
+  });
+});
+
+function paymentNext(){
+  showStep(6);
+}
+
+function placeOrder(){
+
+  let name=document.getElementById("name").value;
+  let city=document.getElementById("city").value;
+  let state=document.getElementById("state").value;
+  let pin=document.getElementById("pin").value;
+
+  let delivery=document.querySelector(
+    'input[name="delivery"]:checked'
+  ).value;
+
+  let payment=document.querySelector(
+    'input[name="payment"]:checked'
+  ).value;
+
+  let orderNumber="PMT"+Date.now().toString().slice(-8);
+
+  document.getElementById("orderInfo").innerHTML=
+  "<b>Order ID:</b> "+orderNumber+
+  "<br><br>"+
+  "<b>Customer:</b> "+name+
+  "<br><br>"+
+  "<b>Delivery:</b> "+delivery+
+  "<br><br>"+
+  "<b>Payment:</b> "+payment+
+  "<br><br>"+
+  "<b>Address:</b> "+city+", "+state+" - "+pin;
+
+  showStep(7);
+}
+
+</script>
+
+</body>
+</html>
