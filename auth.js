@@ -136,36 +136,7 @@ window.logoutPMT = async function () {
     alert("Logout failed.");
   }
 };
-// VERIFY OTP
-window.verifyOTP = async function () {
-  const otpInput = document.getElementById("otp");
 
-  if (!otpInput) {
-    alert("OTP input not found.");
-    return;
-  }
-
-  const otp = otpInput.value.trim();
-
-  if (!/^\d{6}$/.test(otp)) {
-    alert("Enter valid 6-digit OTP.");
-    return;
-  }
-
-  try {
-    await confirmationResult.confirm(otp);
-
-    alert("Login successful!");
-
-    // Continue to checkout
-    if (typeof showStep === "function") {
-      showStep(7);
-    }
-
-  } catch (error) {
-    console.error("OTP verification error:", error);
-    alert("Invalid OTP. Please try again.");
-  }
 };
 
 
