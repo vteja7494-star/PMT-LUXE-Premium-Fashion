@@ -11,12 +11,16 @@ import {
 
 // 🔐 Firebase Console nundi nee config ikkada paste cheyyali
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.firebasestorage.app",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyC-flmLASFbZTdgplIGWn4JK-p18aIe7D4",
+  authDomain: "pmt-luxe-premium-fashion.firebaseapp.com",
+  projectId: "pmt-luxe-premium-fashion",
+  storageBucket: "pmt-luxe-premium-fashion.firebasestorage.app",
+  messagingSenderId: "724070705651",
+  appId: "1:724070705651:web:2af329ad93e69231374a86",
+  measurementId: "G-S726ZV5N6V"
+};
 };
 
 const app = initializeApp(firebaseConfig);
