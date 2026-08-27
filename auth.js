@@ -1,3 +1,11 @@
+const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  storageBucket: "...",
+  messagingSenderId: "...",
+  appId: "..."
+};
 // PMT LUXE — Firebase Phone OTP Login
 // auth.js
 
